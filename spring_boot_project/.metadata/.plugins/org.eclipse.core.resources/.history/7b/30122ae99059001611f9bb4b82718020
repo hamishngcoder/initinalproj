@@ -1,0 +1,90 @@
+package com.project.web.api;
+
+
+import java.math.BigInteger;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.project.model.Consumer;
+import com.project.service.ConsumerService;
+
+@RestController
+public class ConsumerController {
+	
+	@Autowired
+	private ConsumerService consumerService;
+	
+	
+	@RequestMapping(
+			value    = "/api/consumers", 
+			method   = RequestMethod.GET , 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Consumer>> getConsumer(){
+		
+		Collection<Consumer> consumer = consumerService.findAll();
+		if(consumer==null){
+			System.out.println("Empty Map");
+		}
+		
+		return new ResponseEntity<Collection<Consumer>>(consumer , HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(
+			value = "/api/consumers/{id}" ,
+			method   = RequestMethod.GET , 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Consumer> getConsumer(@PathVariable("id") BigInteger id){
+		
+		Consumer consumer= consumerService.findOne(id);
+		if(consumer == null)
+		{
+			return new ResponseEntity<Consumer>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Consumer>(consumer, HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(
+			value = "/api/consumers" ,
+			method   = RequestMethod.POST, 
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Consumer> createConsumer(
+			@RequestBody Consumer consumer) {
+		
+		Consumer savedConsumer = consumerService.create(consumer);
+		return new ResponseEntity<Consumer>(savedConsumer , HttpStatus.CREATED);
+		
+	}
+	
+	@RequestMapping(
+			value = "/api/consumers" ,
+			method   = RequestMethod.PUT, 
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Consumer> updateConsumer(
+			@RequestBody Consumer consumer){
+		
+		Consumer updateConsumer = consumerService.update(consumer);
+		if(updateConsumer == null){
+			return new ResponseEntity<Consumer>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Consumer>(updateConsumer, HttpStatus.OK);
+		
+	}
+
+	
+	
+}

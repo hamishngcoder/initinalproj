@@ -1,0 +1,19 @@
+###
+spring.profiles.active=mysql
+
+spring.jpa.hibernate.naming.strategy=org.hibernate.cfg.DefaultNamingStrategy
+
+spring.jpa.properties.jadira.usertype.autoRegisterUserTypes=true
+
+#Actuator
+endpoints.health.id=status
+endpoints.health.senstitive=false
+endpoints.shutdown.enabled=true
+endpoints.shutdown.sensitive=false
+
+management.context-path=/actuators
+management.security.role=SYSADMIN
+info.app.name= WEB SERVICES
+info.build.group=@project.groupID@
+info.build.artifact=@project.artifactID@
+info.build.version=@project.version@

@@ -1,0 +1,27 @@
+spring.datasource.driverClassName=com.mysql.jdbc.Driver
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://localhost:8081/consumer
+spring.datasource.username=root
+spring.datasource.password=root
+spring.datasource.name=consumer
+
+####
+spring.jpa.hibernate.naming.strategy=org.hibernate.cfg.DefaultNamingStrategy
+
+spring.jpa.properties.jadira.usertype.autoRegisterUserTypes=true
+
+#initialization
+spring.datasource.schema=classpath:/data/mysql/schema.sql
+spring.datasource.data=classpath:/data/mysql/data.sql
+
+#pool
+spring.datasource.initial-size=10
+spring.datasource.max-active=50
+spring.datasource.min-idle=5
+spring.datasource.max=5
+
+spring.datasource.test-on-borrow=true
+spring.datasource..validation-query=select 1;
+
+spring.datasource.time-between-eviction-runs-millis=60000
+spring.datasource..min-evictable-idle-time-millis=30000

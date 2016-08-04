@@ -1,0 +1,93 @@
+package com.project.web.api;
+
+
+import java.math.BigInteger;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.project.model.Consumer;
+
+@RestController
+public class ConsumerController {
+	
+	private static BigInteger nextId;
+	
+	private static Map<BigInteger, Consumer> consumerMap;
+	
+	private static Consumer save(Consumer consumers){
+		if(consumerMap==null)
+		{
+			consumerMap = new HashMap<BigInteger , Consumer>();
+			nextId= BigInteger.ONE;
+		}
+		consumers.setId(nextId);
+		nextId = nextId.add(BigInteger.ONE);
+		consumerMap.put(consumers.getId(), consumers);
+		return consumers;
+		
+	}
+	
+	static{
+		Consumer c1 = new Consumer();
+		c1.setAddress("asdddwdd");
+		save(c1);
+		
+		Consumer c2 = new Consumer();
+		c2.setAddress("fdsffdgrrve");
+		save(c2);
+		
+	}
+	@RequestMapping(
+			value    = "/api/consumers", 
+			method   = RequestMethod.GET , 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Consumer>> getConsumer(){
+		
+		Collection<Consumer> consumer = consumerMap.values();
+		if(consumer==null){
+			System.out.println("Empty Map");
+		}
+		
+		return new ResponseEntity<Collection<Consumer>>(consumer , HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(
+			value = "/api/consumers/{id}" ,
+			method   = RequestMethod.GET , 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Consumer> getConsumer(@PathVariable("id") BigInteger id){
+		
+		Consumer consumer= consumerMap.get(id);
+		if(consumer == null)
+		{
+			return new ResponseEntity<Consumer>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Consumer>(consumer, HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(
+			value = "/api/consumers" ,
+			method   = RequestMethod.POST, 
+			produces = MediaType.APPLICATION_JSON_VALUE,
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Consumer> createConsumer(
+			@RequestBody Consumer consumer) {
+		
+		Consumer savedConsumer = save(consumer);
+		return new ResponseEntity<Consumer>(savedConsumer , HttpStatus.CREATED);
+		
+	}
+
+}

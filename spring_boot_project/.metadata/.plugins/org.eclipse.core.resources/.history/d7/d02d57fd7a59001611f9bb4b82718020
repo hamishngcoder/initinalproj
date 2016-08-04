@@ -1,0 +1,43 @@
+package com.project.service;
+
+import java.math.BigInteger;
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.project.model.Consumer;
+import com.project.repository.ConsumerRepository;
+
+public class ConsumerSericeBean {
+	
+	@Autowired
+	private ConsumerRepository consumerRepository;
+	
+	@Override
+	public Collection<Consumer> findAll(){
+		Collection<Consumer> consumer = consumerMap.values();
+		return consumer;
+		
+	}
+	
+	@Override
+	public Consumer findOne(BigInteger id){
+		Consumer consumer = consumerMap.get(id);
+		return consumer;
+		
+	}
+	
+	@Override
+		public Consumer create(Consumer consumer){
+		Consumer savedConsumer = save(consumer);
+		 return savedConsumer;
+		 
+	}
+	
+	@Override
+	public Consumer update(Consumer consumer)
+	{
+		Consumer updatedConsumer =save(consumer);
+		return updatedConsumer;
+	}
+}

@@ -1,0 +1,5 @@
+package com.project.web.api;
+
+public class ConsumerController {
+
+}

@@ -1,0 +1,17 @@
+spring.datasource.driverClassName=com.mysql.jdbc.Driver
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://localhost/api/consumers
+spring.datasource.username=root
+spring.datasource.password=root
+spring.datasource.name=consumer
+
+###
+spring.profiles.active=mysql
+
+spring.jpa.hibernate.naming.strategy=org.hibernate.cfg.DefaultNamingStrategy
+
+spring.jpa.properties.jadira.usertype.autoRegisterUserTypes=true
+
+#initialization
+spring.datasource.schema=classpath:/data/mysql/schema.sql
+spring.datasource.data=classpath:/data/mysql/data.sql

@@ -1,0 +1,32 @@
+package com.project.model;
+
+import java.math.BigInteger;
+
+public class Consumer {
+
+	private BigInteger id;
+	
+	private String address;
+	
+	public Consumer(){
+		
+	}
+
+	public BigInteger getId() {
+		return id;
+	}
+
+	public void setId(BigInteger id) {
+		this.id = id;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	
+}
